@@ -23,6 +23,8 @@ public class PlantLibrary {
     @Column(nullable = false)
     private int growingDays;
 
+    private byte[] photoUrl;
+
     private int wateringInterval;
 
     private int waterQuantity;

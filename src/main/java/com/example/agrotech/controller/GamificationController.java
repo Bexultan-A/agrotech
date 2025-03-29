@@ -1,6 +1,7 @@
 package com.example.agrotech.controller;
 
 import com.example.agrotech.model.AchievementEarned;
+import com.example.agrotech.model.User;
 import com.example.agrotech.service.GamificationService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -29,5 +30,10 @@ public class GamificationController {
     @GetMapping("/achievements-earned/{userId}")
     public List<AchievementEarned> getUserAchievements(@PathVariable long userId) {
         return gamificationService.getUserAchievements(userId);
+    }
+
+    @GetMapping("/leaderboard")
+    public List<User> getLeaderboard() {
+        return gamificationService.getTopUsersByExperience();
     }
 }

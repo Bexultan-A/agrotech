@@ -27,6 +27,10 @@ public class GamificationService {
     @Autowired
     private TaskRepository taskRepository;
 
+    public List<User> getTopUsersByExperience() {
+        return userRepository.findTop10ByOrderByExperiencePointsDesc();
+    }
+
     public String completeTask(long userId, long taskId) {
         Optional<User> userOptional = userRepository.findById(userId);
         Optional<Task> taskOptional = taskRepository.findById(taskId);
