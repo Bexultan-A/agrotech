@@ -1,0 +1,49 @@
+version: '3.8'
+
+services:
+  postgres:
+    image: postgres:15
+    container_name: agrotech_db
+    restart: always
+    environment:
+      POSTGRES_USER: user
+      POSTGRES_PASSWORD: password
+      POSTGRES_DB: mydatabase
+    volumes:
+      - pgdata:/var/lib/postgresql/data  # Persistent storage
+    ports:
+      - "5432:5432"
+
+  pgadmin:
+    image: dpage/pgadmin4
+    container_name: agrotech_pgadmin
+    restart: always
+    environment:
+      PGADMIN_DEFAULT_EMAIL: admin@example.com
+      PGADMIN_DEFAULT_PASSWORD: admin123
+    volumes:
+      - pgadmin-data:/var/lib/pgadmin  # Persist pgAdmin settings
+    ports:
+      - "5050:80"
+    depends_on:
+      - postgres
+
+  app:
+    build: .
+    container_name: agrotech_spring_boot_app
+    restart: always
+    environment:
+      SPRING_DATASOURCE_URL: jdbc:postgresql://postgres:5432/mydatabase
+      SPRING_DATASOURCE_USERNAME: user
+      SPRING_DATASOURCE_PASSWORD: password
+    ports:
+      - "8080:8080"
+    volumes:
+      - .:/app
+    depends_on:
+      - postgres
+    command: ["./mvnw", "spring-boot:run"]
+
+volumes:
+  pgdata:      # Volume for PostgreSQL data
+  pgadmin-data: # Volume for pgAdmin settings
