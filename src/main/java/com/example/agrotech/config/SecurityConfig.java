@@ -31,10 +31,13 @@ public class SecurityConfig {
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         return http.csrf(AbstractHttpConfigurer::disable)
-                .authorizeHttpRequests(auth ->
-                        auth.requestMatchers("/api/auth/register").permitAll()
-                                .requestMatchers("/api/**").authenticated())
-                .formLogin(AbstractAuthenticationFilterConfigurer::permitAll)
+                .authorizeHttpRequests(auth -> auth
+//                        auth.requestMatchers("/api/auth/register").permitAll()
+                                .requestMatchers("/api/**").permitAll())
+
+//                .formLogin(AbstractAuthenticationFilterConfigurer::permitAll)
+                .httpBasic(AbstractHttpConfigurer::disable) // Disable default authentication popup
+                .formLogin(AbstractAuthenticationFilterConfigurer::disable)
                 .cors(cors -> cors.configurationSource(request -> {
                     CorsConfiguration config = new CorsConfiguration();
                     config.setAllowedOrigins(List.of("http://localhost:3000", "https://web.postman.co"));

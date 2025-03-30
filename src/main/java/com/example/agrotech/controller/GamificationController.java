@@ -34,6 +34,16 @@ public class GamificationController {
 
     @GetMapping("/leaderboard")
     public List<User> getLeaderboard() {
-        return gamificationService.getTopUsersByExperience();
+        return gamificationService.getTopUsers();
+    }
+
+    @PostMapping("/task-complete")
+    public String completeTask(@PathVariable long userId, @PathVariable long taskAssignedId) {
+        return gamificationService.completeTask(userId, taskAssignedId);
+    }
+
+    @PostMapping("/task-failed/{userId}/{taskAssignedId}")
+    public String failedTask(@PathVariable long userId, @PathVariable long taskAssignedId) {
+        return gamificationService.failedTask(userId, taskAssignedId);
     }
 }

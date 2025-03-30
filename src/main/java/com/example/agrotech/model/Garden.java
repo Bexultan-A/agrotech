@@ -41,8 +41,8 @@ public class Garden {
     @Column(nullable = false)
     private String status; // Active, Harvested, Issue
 
-    @OneToMany(mappedBy = "garden", cascade = CascadeType.ALL)
-    private List<Observation> observations;
+//    @OneToMany(mappedBy = "garden", cascade = CascadeType.ALL)
+//    private List<Observation> observations;
 
     @Column(nullable = false)
     private int healthPoints = 100; // Starts at 100 HP

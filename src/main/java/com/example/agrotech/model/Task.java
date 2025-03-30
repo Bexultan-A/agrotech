@@ -20,6 +20,11 @@ public class Task {
 
     private String description;
 
+    private int timeToComplete;
+
     @Column(nullable = false)
     private int experiencePoints; // XP rewarded for completing this task
+
+    private int hpChange;
+    private int careChange;
 }

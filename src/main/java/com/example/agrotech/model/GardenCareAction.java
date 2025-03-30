@@ -4,9 +4,9 @@ import lombok.Getter;
 
 @Getter
 public enum GardenCareAction {
-    WATERING(10, 2),
+    WATERING(0, 2),
     IGNORING(-20, -5), // Neglect reduces HP and care level
-    HARVESTING(5, 1);
+    HARVESTING(0, 1);
 
     private final int hpChange;
     private final int careChange;

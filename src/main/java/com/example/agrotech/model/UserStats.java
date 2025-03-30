@@ -21,6 +21,7 @@ public class UserStats {
     @JoinColumn(name = "user_id")
     private User user;
 
+    private String title = "Rookie Nogi";
     private int experiencePoints;
     private int level;
 
