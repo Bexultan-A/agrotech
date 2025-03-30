@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 
+import java.math.BigDecimal;
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
@@ -27,6 +28,9 @@ public class GamificationService {
 
     @Autowired
     private TaskRepository taskRepository;
+
+    @Autowired
+    private LogsRepository logsRepository;
 
     @Autowired
     private TaskAssignedRepository taskAssignedRepository;
@@ -106,6 +110,41 @@ public class GamificationService {
 
         // Check for achievements
         checkAchievements(userId, stats.getExperiencePoints());
+    }
+
+    public void updateRank(long userId) {
+        UserStats stats = userStatsRepository.findByUserId(userId)
+                .orElseThrow(() -> new RuntimeException("User stats not found"));
+
+        List<Logs> logs = logsRepository.findByUserId(userId);
+
+        long rankPoints = 0;
+        for (Logs log : logs) {
+            long KPD = log.getGarden().getQuantitySowed() * log.getGarden().getPlantType().getQuantityHarvestedPerUnit();
+            rankPoints += log.getHealthPoints()/5 + log.getCareLevel() * 5L + log.getQuantityHarvested()/KPD;
+        }
+
+        long newRankPoints = rankPoints/logs.size();
+
+        String newRank;
+        if (newRankPoints >= 100) {
+            newRank = "S";
+        } else if (newRankPoints >= 90) {
+            newRank = "A";
+        } else if (newRankPoints >= 80) {
+            newRank = "B";
+        } else if (newRankPoints >= 70) {
+            newRank = "C";
+        } else if (newRankPoints >= 60) {
+            newRank = "D";
+        } else {
+            newRank = "E";
+        }
+
+        stats.setRankPoints(newRankPoints);
+        stats.setRank(newRank);
+        userStatsRepository.save(stats);
+
     }
 
     private int getNextLevelThreshold(int level) {

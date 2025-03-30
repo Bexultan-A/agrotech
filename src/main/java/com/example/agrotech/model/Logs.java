@@ -6,6 +6,8 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import java.math.BigDecimal;
+
 @Entity
 @Table(name = "logs")
 @Getter
@@ -18,20 +20,14 @@ public class Logs {
     private long id;
 
     @ManyToOne
-    @JoinColumn(name = "user_id", nullable = false)
-    private User user;
+    @JoinColumn(name = "garden_id", nullable = false)
+    private Garden garden;
+
+    private long quantityHarvested;
 
     @Column(nullable = false)
-    private String label;
+    private int healthPoints; // Starts at 100 HP
 
     @Column(nullable = false)
-    private String plantType;
-
-    private String substrate;
-
-    @Column(nullable = false)
-    private int healthPoints = 100; // Starts at 100 HP
-
-    @Column(nullable = false)
-    private int careLevel = 0; // Tracks how well the garden is maintained
+    private int careLevel; // Tracks how well the garden is maintained
 }

@@ -26,8 +26,9 @@ public class Garden {
     @Column(nullable = false)
     private String label;
 
-    @Column(nullable = false)
-    private String plantType;
+    @ManyToOne
+    @JoinColumn(name = "plant_library_id", nullable = false)
+    private PlantLibrary plantType;
 
     private String substrate;
 
@@ -36,13 +37,10 @@ public class Garden {
 
     private LocalDate harvestDate;
 
-    private BigDecimal quantity;
+    private long quantitySowed;
 
     @Column(nullable = false)
     private String status; // Active, Harvested, Issue
-
-//    @OneToMany(mappedBy = "garden", cascade = CascadeType.ALL)
-//    private List<Observation> observations;
 
     @Column(nullable = false)
     private int healthPoints = 100; // Starts at 100 HP

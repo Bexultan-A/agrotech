@@ -24,8 +24,8 @@ public class UserStats {
     private String title = "Rookie Nogi";
     private int experiencePoints;
     private int level;
-
-
+    private String rank = "E";
+    private long rankPoints;
     // Опционально: можно добавить рейтинг, количество выполненных задач и т. д.
 }
 

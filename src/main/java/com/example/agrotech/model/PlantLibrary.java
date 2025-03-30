@@ -37,6 +37,8 @@ public class PlantLibrary {
 
     private BigDecimal air_temperature;
 
+    private long quantityHarvestedPerUnit;
+
     @Column(length = 1000)
     private String notes;
 
