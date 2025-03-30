@@ -40,7 +40,7 @@ public class Garden {
     private long quantitySowed;
 
     @Column(nullable = false)
-    private String status; // Active, Harvested, Issue
+    private String status; // Active, Harvested, Issue, Failed
 
     @Column(nullable = false)
     private int healthPoints = 100; // Starts at 100 HP
