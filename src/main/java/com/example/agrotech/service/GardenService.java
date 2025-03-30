@@ -27,7 +27,7 @@ public class GardenService {
     }
 
     public Garden saveGarden(Garden garden) {
-        garden.setLabel("#" + (garden.getPlantType().length() >= 3 ? garden.getPlantType().substring(0, 3) : garden.getPlantType()) + garden.getId());
+        garden.setLabel("#" + (garden.getPlantType().getName().length() >= 3 ? garden.getPlantType().getName().substring(0, 3) : garden.getPlantType()) + garden.getId());
         return gardenRepository.save(garden);
     }
 
